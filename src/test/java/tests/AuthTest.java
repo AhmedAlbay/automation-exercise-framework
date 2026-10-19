@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
+import pages.SignupPage;
 
 public class AuthTest extends BaseTest {
 
@@ -27,9 +28,9 @@ public class AuthTest extends BaseTest {
         driver.get("https://automationexercise.com/login");
 
         // ---- Locators: signup page ----
-        By nameField = By.cssSelector("input[data-qa='signup-name']");
-        By emailField = By.cssSelector("input[data-qa='signup-email']");
-        By signupButton = By.cssSelector("button[data-qa='signup-button']");
+        String email = "ahmed" + System.currentTimeMillis() + "@gmail.com";
+        SignupPage signupPage =new SignupPage(driver);
+        signupPage.signup("Ahmed" ,email);
 
         // ---- Locators: account information page ----
         By titleRadioButton = By.id("uniform-id_gender1");
@@ -59,10 +60,7 @@ public class AuthTest extends BaseTest {
 
         // Step 1: signup page. The email must be unique on every run,
         // otherwise the site answers "Email Address already exist!"
-        String email = "ahmed" + System.currentTimeMillis() + "@gmail.com";
-        driver.findElement(nameField).sendKeys("Ahmed");
-        driver.findElement(emailField).sendKeys(email);
-        driver.findElement(signupButton).click();
+
 
         // Step 2: a NEW page opened -> wait for a known element (password) before touching anything else
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys("Test@1234");
