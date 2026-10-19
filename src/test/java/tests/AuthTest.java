@@ -1,5 +1,6 @@
 package tests;
 
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,41 +14,7 @@ import org.testng.annotations.Test;
 
 import java.time.Duration;
 
-public class AuthTest {
-
-    // The browser itself. One new instance is created before every test.
-    WebDriver driver;
-
-    // Smart wait: polls the page until a condition is true (max 30 seconds).
-    WebDriverWait wait;
-
-    // true  -> browser stays open after the test (useful while learning/debugging)
-    // false -> browser closes after every test (REQUIRED before commit / CI)
-    boolean keepBrowserOpen = false;
-
-    // ------------------------------------------------------------------
-    // Setup & Teardown
-    // ------------------------------------------------------------------
-
-    @BeforeMethod
-    public void setUp() {
-        // Runs before EVERY @Test: open a fresh Chrome so tests stay independent.
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-    }
-
-    @AfterMethod
-    public void tearDown() {
-        // Runs after EVERY @Test (even if the test failed).
-        if (!keepBrowserOpen && driver != null) {
-            driver.quit();
-        }
-    }
-
-    // ------------------------------------------------------------------
-    // TC-04: Login with wrong credentials shows an error
-    // ------------------------------------------------------------------
+public class AuthTest extends BaseTest {
 
     @Test
     public void invalidLoginShowsError() {
