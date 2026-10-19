@@ -6,27 +6,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 public class AuthTest extends BaseTest {
 
     @Test
     public void invalidLoginShowsError() {
         driver.get("https://automationexercise.com/login");
-
-        // Locators for the login form and the error message
-        By emailField = By.cssSelector("input[data-qa='login-email']");
-        By passwordField = By.cssSelector("input[data-qa='login-password']");
-        By loginButton = By.cssSelector("button[data-qa='login-button']");
-        By errorMessage = By.xpath("//p[contains(text(),'incorrect')]");
-
-        // Fill the form with data that does not exist, then submit
-        driver.findElement(emailField).sendKeys("Ahmed@gmail.com");
-        driver.findElement(passwordField).sendKeys("123456");
-        driver.findElement(loginButton).click();
-
-        // Wait for the error to appear, read its text, and compare with the expected text
-        String actual = wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage)).getText();
-        Assert.assertEquals(actual, "Your email or password is incorrect!");
+        LoginPage loginPage= new LoginPage(driver);
+        loginPage.login("Ahmed@gmail.com" , "A@fsg5321");
+        Assert.assertEquals(loginPage.getTextErrorMessage(), "Your email or password is incorrect!");
     }
 
     // ------------------------------------------------------------------
