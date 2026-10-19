@@ -167,7 +167,7 @@ public class AuthTest {
         // Unique email per run + a fixed password
         String email = "ahmed" + System.currentTimeMillis() + "@gmail.com";
         String password = "Test@1234";
-
+        System.out.println(email);
         // Locators used by this test
         By logoutLink = By.xpath("//a[@href='/logout']");
         By loggedInAs = By.xpath("//a[contains(text(),'Logged in as')]");
@@ -179,7 +179,7 @@ public class AuthTest {
 
         // 1) Test data setup: create a new account (we end up logged in)
         registerNewUser(email, password);
-
+        System.out.println(email);
         // 2) TC-06 Logout: click Logout and verify we are back on the login page
         wait.until(ExpectedConditions.elementToBeClickable(logoutLink)).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(loginEmail));
